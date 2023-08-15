@@ -1,7 +1,7 @@
 const Header = (props) => {
   return (
     <h1>{props.course}</h1>
-  );
+  )
 }
 
 const Content = (props) => {
@@ -11,7 +11,7 @@ const Content = (props) => {
         <Part part={part.name} exercises={part.exercises} />
       ))}
     </div>
-  );
+  )
 }
 
 const Part = (props) => {
@@ -19,15 +19,15 @@ const Part = (props) => {
     <p>
       {props.part} {props.exercises}
     </p>
-  );
+  )
 }
 
 const Total = (props) => {
-  const totalExercises = props.parts.reduce((total, part) => total + part.exercises, 0);
+  const totalExercises = props.parts.reduce((total, part) => total + part.exercises, 0)
 
   return (
     <p>Number of exercises {totalExercises}</p>
-  );
+  )
 }
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
     { name: 'Fundamentals of React', exercises: 10 },
     { name: 'Using props to pass data', exercises: 7 },
     { name: 'State of a component', exercises: 14 }
-  ];
+  ]
 
   return (
     <div>
@@ -44,8 +44,8 @@ const App = () => {
       <Content parts={parts} />
       <Total parts={parts} />
     </div>
-  );
+  )
 }
 
 
-export default App;
+export default App
