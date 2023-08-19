@@ -5,8 +5,47 @@ const Button = (props) => (
     {props.text}
   </button>
 )
+const FeedbackButtons = ({ handleGood, handleNeutral, handleBad }) => (
+  <div>
+    <Button handleClick={handleGood} text="Good"></Button>
+    <Button handleClick={handleNeutral} text="Neutral"></Button>
+    <Button handleClick={handleBad} text="Bad"></Button>
+  </div>
+)
 
-const Statistics = (props) => (<div>{props.label} {props.value}</div>)
+const Statistics = ({ good, neutral, bad, all, average, positive }) => (
+  <div>
+    <h2>statistics</h2>
+    <table>
+      <tbody>
+        <tr>
+          <td>good</td>
+          <td>{good}</td>
+        </tr>
+        <tr>
+          <td>neutral</td>
+          <td>{neutral}</td>
+        </tr>
+        <tr>
+          <td>bad</td>
+          <td>{bad}</td>
+        </tr>
+        <tr>
+          <td>all</td>
+          <td>{all}</td>
+        </tr>
+        <tr>
+          <td>average</td>
+          <td>{average}</td>
+        </tr>
+        <tr>
+          <td>positive</td>
+          <td>{positive.toFixed(2)}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+)
 
 const App = () => {
   // save clicks of each button to its own state
@@ -23,23 +62,13 @@ const App = () => {
   return (
     <div>
       <h2>give feedback</h2>
-      <Button handleClick={() => setGood(good+1)} text="Good"></Button>
-      <Button handleClick={() => setNeutral(neutral+1)} text="Neutral"></Button>
-      <Button handleClick={() => setBad(bad+1)} text="Bad"></Button>
-      <h2>statistics</h2>
-      {hasFeedback ?(
-        <>
-          <Statistics label="good" value={good}></Statistics>
-          <Statistics label="neutral" value={neutral}></Statistics>
-          <Statistics label="bad" value={bad}></Statistics>
-          <Statistics label="all" value={all}></Statistics>
-          <Statistics label="average" value={average}></Statistics>
-          <Statistics label="positive" value={positive + '%'}></Statistics>
-        </>
-      ) : (
-        <p>No feedback given</p>
-      )}
-
+      <FeedbackButtons
+        handleGood={() => setGood(good + 1)}
+        handleNeutral={() => setNeutral(neutral + 1)}
+        handleBad={() => setBad(bad + 1)}
+      />
+      {hasFeedback ? (<Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />)
+      : (<p>No feedback given</p>)}
     </div>
   )
 }
