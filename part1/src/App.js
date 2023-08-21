@@ -1,5 +1,19 @@
 import { useState } from 'react'
 
+const Anecdote = ({ anecdote, voteCount }) => (
+  <div>
+    <p>{anecdote}</p>
+    <p>{voteCount} votes</p>
+  </div>
+)
+
+const ButtonGroup = ({ generateRandomQuote, voteAnecdote }) => (
+  <div>
+    <button onClick={generateRandomQuote}>Random Anecdote</button>
+    <button onClick={voteAnecdote}>Vote</button>
+  </div>
+)
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -23,16 +37,30 @@ const App = () => {
     setVotes(newVotes)
   }
 
+  const findMostVotedAnecdoteIndex = () => {
+    let maxVotes = 0
+    let mostVotedIndex = 0
+
+    for (let i = 0; i < votes.length; i++) {
+      if (votes[i] > maxVotes) {
+        maxVotes = votes[i]
+        mostVotedIndex = i
+      }
+    }
+
+    return mostVotedIndex
+  }
+
+  const mostVotedIndex = findMostVotedAnecdoteIndex()
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>{votes[selected]} votes</p>
-      <div>
-        <button onClick={generateRandomQuote}>Random Anecdote</button>
-        <button onClick={voteAnecdote}>Vote</button>
-      </div>
+      <h2>Anecdote of the day</h2>
+      <Anecdote anecdote={anecdotes[selected]} voteCount={votes[selected]} />
+      <ButtonGroup generateRandomQuote={generateRandomQuote} voteAnecdote={voteAnecdote} />
 
+      <h2>Anecdote with the most votes</h2>
+      <Anecdote anecdote={anecdotes[mostVotedIndex]} voteCount={votes[mostVotedIndex]} />
     </div>
   )
 }
