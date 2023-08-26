@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -13,9 +13,13 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
 
-    const newPerson = { name: newName }
-    setPersons([...persons, newPerson])
-    setNewName('')
+    if (persons.some(person => person.name === newName)) {
+      alert(`${newName} is already added to the phonebook`)
+    } else {
+      const newPerson = { name: newName };
+      setPersons([...persons, newPerson])
+      setNewName('')
+    }
   }
 
   return (
