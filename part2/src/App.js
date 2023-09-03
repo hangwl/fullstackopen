@@ -1,5 +1,47 @@
 import React, { useState } from 'react';
 
+// Filter component
+const Filter = ({ searchQuery, handleSearchChange }) => {
+  return (
+    <div>
+      Search <input value={searchQuery} onChange={handleSearchChange} />
+    </div>
+  )
+}
+
+// PersonForm component
+const PersonForm = ({ newName, newNumber, handleNameChange, handleNumberChange, addPerson }) => {
+  return (
+    <div>
+      <form onSubmit={addPerson}>
+        <div>
+          Name <input value={newName} onChange={handleNameChange}/>
+        </div>
+        <div>
+          Number <input value={newNumber} onChange={handleNumberChange}/>
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+// Persons Component
+const Persons = ({ persons }) => {
+  return (
+    <div>
+      <ul>
+        {persons.map((person, index) => (
+          <li key={index}>{person.id} {person.name} {person.number} </li>
+          
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -37,33 +79,24 @@ const App = () => {
     }
   }
 
-  const filteredPersons = persons.filter((person) => person.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredPersons = persons.filter((person) => 
+    person.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={searchQuery} onChange={handleSearchChange} />
-      </div>
-      <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {filteredPersons.map((person, index) => (
-          <li key={index}>{person.id} {person.name} {person.number} </li>
-          
-        ))}
-      </ul>
+      <Filter searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+      <h3>New Contact</h3>
+      <PersonForm 
+        newName={newName} 
+        wNumber={newNumber} 
+        handleNameChange={handleNameChange} 
+        handleNumberChange={handleNumberChange} 
+        addPerson={addPerson} 
+      />
+      <h3>Contacts</h3>
+      <Persons persons={filteredPersons} />
     </div>
   )
 }
