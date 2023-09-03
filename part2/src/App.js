@@ -86,13 +86,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+      <Filter
+        searchQuery={searchQuery} handleSearchChange={handleSearchChange}
+      />
       <h3>New Contact</h3>
       <PersonForm 
-        newName={newName} 
-        newNumber={newNumber} 
-        handleNameChange={handleNameChange} 
-        handleNumberChange={handleNumberChange} 
+        newName={newName} handleNameChange={handleNameChange}
+        newNumber={newNumber} handleNumberChange={handleNumberChange} 
         addPerson={addPerson} 
       />
       <h3>Contacts</h3>
