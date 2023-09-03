@@ -90,7 +90,7 @@ const App = () => {
       <h3>New Contact</h3>
       <PersonForm 
         newName={newName} 
-        wNumber={newNumber} 
+        newNumber={newNumber} 
         handleNameChange={handleNameChange} 
         handleNumberChange={handleNumberChange} 
         addPerson={addPerson} 
